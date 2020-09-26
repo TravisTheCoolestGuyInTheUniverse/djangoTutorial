@@ -1,0 +1,30 @@
+Remaking my notes since i didn't push my code to github like a doofus:
+
+Django is powerful because it forces its users to develop websites in an optimal way:
+it forces the website to be scaleable and efficient. Other web frameworks give you more 
+flexability and an ability to see what's happening under the hood however they also allow 
+their users to do things however they want even if it is sub-optimal. 
+
+A project in Django is composed of one or more web-applications. For example, there could be an 
+application for a home page, another for a store page, ect. This makes the projects more scalable.
+
+models in a django project are described as 
+
+**** USEFUL COMMANDS ****
+
+django-admin startproject [project name]
+py manage.py startapp [app name]
+py manage.py runserver (development server)
+django-admin makemigrations (preps up database, useful for when you first make your models)
+django-admin migrate (actually moves data to the database)
+
+to test the database directly without using forms and stuff: 
+
+py manage.py shell
+from main.models import User (or other db model)
+newUser = User(userName="name" [, fill in other columns])
+newUser.save() (commit the changes)
+User.objects.all() (print all the objects)
+(note that you can also iterate over the objects in the database)
+to delete a single entry in a table: 
+SomeModel.objects.filter(id=id).delete()

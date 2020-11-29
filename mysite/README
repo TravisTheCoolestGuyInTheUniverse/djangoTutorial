@@ -8,6 +8,11 @@ their users to do things however they want even if it is sub-optimal.
 A project in Django is composed of one or more web-applications. For example, there could be an 
 application for a home page, another for a store page, ect. This makes the projects more scalable.
 
+****    URLS    ****
+urls are "universal resource locators". In this case, they are used to identify each web page.
+the urls.py file for each web application is used to decide what is displayed at each 
+url.
+
 ****    MODELS    ****
 models in a django project are useful because they act as "models" for how the database for the website
 will generated. Models can be used to create no-sql databases or sql databases.
@@ -28,6 +33,33 @@ in admin.py first.
 you can have hundreds of attributes (columns) for a model (table),
 but you may only care about seeing a few on the admin page. this is done
 in the admin.py file.
+
+****    VIEWS AND TEMPLATES     ****
+most pages are served via the MVC (model view controller) framework.
+views are interacting with models, and controllers work with the urls.
+
+takes place in views.py. return render for a view function so the website knows what to render
+for a particular view.
+
+in templates:
+<!--similar to jinja2 temapalting.-->
+<!--if you wanna do some logic: {%%} -->
+<!--if you wanna do a variable: {{ variable }}-->
+<!--if you wanna do for loop: {%for%} {%endfor%}-->
+
+
+
+
+lets review some terms: 
+
+view: 
+user interface, what a user sees in the browser when the website is rendered. 
+HTML/Javascript/CSS/Jinja
+model:
+A model in Django lays out the structure of a table in a database. defines its rows/colums
+and what is contained in each row and column.
+template:
+url:
 
 **** USEFUL COMMANDS ****
 
@@ -51,3 +83,28 @@ SomeModel.objects.filter(id=id).delete()
 
 creating a super user: 
 py manage.py createsuperuser
+
+
+
+
+
+
+
+
+
+
+
+notes from independent readings: 
+**** MVC NOTES  **** https://data-flair.training/blogs/django-architecture/
+
+The MVC (Model, View, Controller) architecture/pattern makes the project structure for
+a website more modular: rather than having all of the code in one file, the code is spread 
+over multiple files and organized such that code for each aspect is stored seperately.
+
+Model: mediator between the website interface and the database. implements logic for the 
+applications data domain. Model contains business logic in Django architecture. 
+(business logic handles exchange between database and user interface)
+
+View: UI logic. HTML/CSS created from the Models component.
+
+Controller: handles user interaction and selects view according to model.

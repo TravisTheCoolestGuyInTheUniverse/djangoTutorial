@@ -7,7 +7,8 @@ from .models import User
 class UserAdmin(admin.ModelAdmin):
 
     fieldsets = [
-        ("Username/password", {"fields": ["userName", "password"]})
+        ("Username/password", {"fields": ["userName", "password"]}),
+        ("code", {"fields": ["code"]}),
     ]
 
 #register a model

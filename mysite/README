@@ -8,7 +8,26 @@ their users to do things however they want even if it is sub-optimal.
 A project in Django is composed of one or more web-applications. For example, there could be an 
 application for a home page, another for a store page, ect. This makes the projects more scalable.
 
-models in a django project are described as 
+****    MODELS    ****
+models in a django project are useful because they act as "models" for how the database for the website
+will generated. Models can be used to create no-sql databases or sql databases.
+
+
+
+****    ADMIN AND APPS    **** 
+when you create an adminstrator/superuser you can associate an email with it.
+when the website is sent to production, error messages can be emailed to the super user which is
+pretty handy. 
+
+as a super user, you can login using the /admin uri and have a lot of handy tools
+available to you via a clean and convenient gui. 
+
+you can see and manipulate your models, but you have to register your models
+in admin.py first.
+
+you can have hundreds of attributes (columns) for a model (table),
+but you may only care about seeing a few on the admin page. this is done
+in the admin.py file.
 
 **** USEFUL COMMANDS ****
 
@@ -28,3 +47,7 @@ User.objects.all() (print all the objects)
 (note that you can also iterate over the objects in the database)
 to delete a single entry in a table: 
 SomeModel.objects.filter(id=id).delete()
+
+
+creating a super user: 
+py manage.py createsuperuser

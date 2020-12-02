@@ -1,5 +1,7 @@
 from django.contrib import admin
 from .models import User
+from tinymce.widgets import TinyMCE
+from django.db import models
 # Register your models here.
 
 #this is the attributes of the User model that will appear 
@@ -11,5 +13,8 @@ class UserAdmin(admin.ModelAdmin):
         ("code", {"fields": ["code"]}),
     ]
 
+    formfield_overrides = {
+        models.TextField: {'widget': TinyMCE()}
+    }
 #register a model
 admin.site.register(User, UserAdmin)

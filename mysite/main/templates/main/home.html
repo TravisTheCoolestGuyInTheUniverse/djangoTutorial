@@ -1,6 +1,21 @@
-<p><b>uhhh</b></p>
+<head>
+    <!--css/javascript goes in head. loaded in head.-->
+    {% load static %}
+    <link href="{% static 'tiny/css/prism.css' %}" rel="stylesheet">
+</head>
 
-{% for user in Users %}
-<p>{{user.userName}}  {{user.password}}</p>
-{% endfor %}
+<body>
+    {% for user in Users %}
+        <p>{{user.userName}}</p>
+        <p>{{user.password}}</p>
+        <!--safe flag means you can render the mce html. (html used to format code column on admin page)-->
+        <p>{{user.code|safe}}</p>
+        <br><br>
+    {% endfor %}
+</body>
+
+<script src="{% static 'tinymce/js/prism.js' %}"></script>
+
+
+
 

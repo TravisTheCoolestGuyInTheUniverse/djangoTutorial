@@ -24,4 +24,5 @@ at the uri of ''.
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls')),
+    path('tinymce/', include('tinymce.urls'))
 ]

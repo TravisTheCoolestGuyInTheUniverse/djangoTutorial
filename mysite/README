@@ -61,6 +61,20 @@ and what is contained in each row and column.
 template:
 url:
 
+
+****    CSS FRAMEWORK    ****
+framework we're gonna use is "materialize css".
+uses "material design". Things are lifted above other things like pieces of paper.
+
+to start, go to the website and put the links in the header file of the template
+so that it's loaded before the page is rendered.
+
+also makes the website responsive: looks good on all devices.
+
+if you want to download and compile your own version of the framework css you can downoad the source from the website 
+and use something like Koala to compile it. That's what i did and it is located in
+main/static/main/css folder and referred to in templates.html.
+
 **** USEFUL COMMANDS ****
 
 django-admin startproject [project name]

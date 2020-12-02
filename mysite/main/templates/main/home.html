@@ -1,21 +1,23 @@
-<head>
-    <!--css/javascript goes in head. loaded in head.-->
-    {% load static %}
-    <link href="{% static 'tiny/css/prism.css' %}" rel="stylesheet">
-</head>
-
-<body>
-    {% for user in Users %}
-        <p>{{user.userName}}</p>
-        <p>{{user.password}}</p>
-        <!--safe flag means you can render the mce html. (html used to format code column on admin page)-->
-        <p>{{user.code|safe}}</p>
-        <br><br>
-    {% endfor %}
-</body>
-
-<script src="{% static 'tinymce/js/prism.js' %}"></script>
-
-
-
+<!--html in this file extends the html in header.html-->
+{% extends "main/header.html" %}
+<!--this shows where in header.html this html will be placed. corresponding indicator in header.html-->
+{% block content %}
+    <!--cards containing tutorials-->
+    <div class="row">
+        {% for tutorial in Tutorials %}
+        <!--s12 means on small screen use 12 cols, on medium screen use 6 cols, ect. this is with the help of css. this makes the page reactive.-->
+        <div class="col s12 m6">
+            <!--seems like all of these classes allow css to manipulate how content is displayed.-->
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title">{{tutorial.title}}</span>
+                <p style="font-size: 70%">{{tutorial.datePublished}}</p>
+                <!--safe flag means you can render the mce html. (html used to format code column on admin page)-->
+                <p>{{tutorial.content|safe}}</p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+{% endblock %}
 

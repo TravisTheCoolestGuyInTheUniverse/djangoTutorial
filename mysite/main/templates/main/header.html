@@ -1,0 +1,40 @@
+<!--this file will contain everything that's consistent between pages of the website.-->
+<head>
+    <!--css/javascript goes in head. loaded in head.-->
+    {% load static %}
+    <!--compiled CSS (that i downloaded and changed the primary color to indigo in the _variables file so the navbar would be a different color)-->
+    <link href="{% static 'main/css/materialize.css' %}" rel="stylesheet">
+    <!-- Compiled and minified CSS (if you want to use the default on the website)-->
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">-->
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+</head>
+<!--everything that is rendered inside the browser should be in body-->
+<body>
+    <!--Navigation bar-->
+    <nav>
+        <div class="nav-wrapper">
+          <a href="#" class="brand-logo">Tutorials!?!?!?</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="/">Home</a></li>
+            <li><a href="/register">Register</a></li>
+            <li><a href="/login">Login</a></li>
+          </ul>
+        </div>
+      </nav>
+      <!--anything that extends this file can put content here.-->
+      {% block content %}
+      {% endblock %}
+</body>
+
+
+
+        
+        <br><br>
+
+<script src="{% static 'tinymce/js/prism.js' %}"></script>
+
+
+
+

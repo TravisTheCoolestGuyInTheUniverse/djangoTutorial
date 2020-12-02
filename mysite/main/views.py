@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import User
+from .models import Tutorial
 # Create your views here.
 
 def home(request):
@@ -18,4 +18,4 @@ def home(request):
     #looks 
     return render(request=request, 
                   template_name="main/home.html",
-                  context={"Users": User.objects.all})
+                  context={"Tutorials": Tutorial.objects.all})

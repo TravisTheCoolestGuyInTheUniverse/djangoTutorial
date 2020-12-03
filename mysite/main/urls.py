@@ -16,9 +16,12 @@ Including another URLconf
 from django.urls import path
 from . import views
 
+app_name = "main"
+
 """
 at the URI of '' we want to display whatever is in views.home.
 """
 urlpatterns = [
     path('', views.home, name='home'),
+    path('register/', views.register, name="register"),
 ]

@@ -1,6 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Tutorial
+#convenient form thats already created for us in django!
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login, logout, authenticate
 # Create your views here.
 
 def home(request):
@@ -19,3 +22,25 @@ def home(request):
     return render(request=request, 
                   template_name="main/home.html",
                   context={"Tutorials": Tutorial.objects.all})
+
+
+def register(request):
+    #if the user clicks the register button, request is post (make changes to server)
+    if request.method == "POST":
+        #fill form with data that they inserted
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            #commit to the database
+            user = form.save()
+            #login the user
+            login(request, user)
+            #return them to the homepage
+            #finds that app_name = 'home' in urls.py and then finds the path with name home and takes user there.
+            return redirect('main:home')
+        else:
+            for msg in form.error_messages:
+                #temporary way of handling error messages
+                print(form.error_messages[msg])
+
+    form = UserCreationForm
+    return render(request, "main/register.html", context={"form":form})

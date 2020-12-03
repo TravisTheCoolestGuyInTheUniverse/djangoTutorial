@@ -75,6 +75,16 @@ if you want to download and compile your own version of the framework css you ca
 and use something like Koala to compile it. That's what i did and it is located in
 main/static/main/css folder and referred to in templates.html.
 
+****   HANDLING USER REGISTRATION    ****
+start by creating a view in main.views.py for the /register url. 
+this view creates a user registration form using the default django class.
+this form is then passed into the render function as context along with the
+register.html template. Then if the user presses the register button the contents
+of the form are saved to the database (using the default User model) and then
+then the user is logged in using default django methods.
+lastly the website needs to know to show the register view at /register
+so create a path in urls.py. 
+
 **** USEFUL COMMANDS ****
 
 django-admin startproject [project name]

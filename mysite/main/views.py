@@ -2,9 +2,11 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Tutorial
 #convenient form thats already created for us in django!
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
+#this is the form that i extended from UserCreationForm
+from .forms import NewUserForm
 # Create your views here.
 
 def home(request):
@@ -29,7 +31,7 @@ def register(request):
     #if the user clicks the register button, request is post (make changes to server)
     if request.method == "POST":
         #fill form with data that they inserted
-        form = UserCreationForm(request.POST)
+        form = NewUserForm(request.POST)
         if form.is_valid():
             #commit to the database
             user = form.save()
@@ -44,12 +46,43 @@ def register(request):
             login(request, user)
             messages.info(request, f"You are now logged in as {username}")
             #return them to the homepage
-            #finds that app_name = 'home' in urls.py and then finds the path with name home and takes user there.
+            #finds that app_name = 'main' in urls.py and then finds the path with name home and takes user there.
             return redirect('main:home')
         else:
             for msg in form.error_messages:
                 #temporary way of handling error messages
                 messages.error(request, f"{msg}: {form.error_messages[msg]}")
 
-    form = UserCreationForm
+    form = NewUserForm
     return render(request, "main/register.html", context={"form":form})
+
+def logout_request(request):
+    #use djangos built in function to log the user out (also this is why you don't want your view to be called logout)
+    logout(request)
+    #create a message that says that the user logged out successfully
+    messages.info(request, "Logged out successfully! WOOOO")
+    #redirect to the path in main with the name home (urls.py)
+    return redirect("main:home")
+
+def login_request(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            #we're getting the value of the 'username' field from the form
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            #if there is a user with the username and password in a database, this will not be None
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                #if the user is valid, log em in! (using djangos default login function)
+                login(request, user)
+                messages.info(request, f"You are now logged in as {username}")
+                return redirect("main:home")
+            else:
+                messages.info(request, f"invalid username or password!")
+        else:
+            messages.info(request, f"invalid username or password! (form)")
+
+    #"pass form into the template"
+    form = AuthenticationForm()
+    return render(request, "main/login.html", {"form":form})

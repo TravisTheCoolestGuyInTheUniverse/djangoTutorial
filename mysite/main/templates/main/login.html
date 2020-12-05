@@ -1,0 +1,20 @@
+<!--html in this file extends the html in header.html-->
+{% extends "main/header.html" %}
+<!--this shows where in header.html this html will be placed. corresponding indicator in header.html-->
+{% block content %}
+<!--csrf_token means cross site request forgery token. keeps users of this website 
+safe from other malicious websites that might try to make their browsers make requests here.
+here is a link: 
+https://stackoverflow.com/questions/5207160/what-is-a-csrf-token-what-is-its-importance-and-how-does-it-work#:~:text=A%20CSRF%20token%20is%20a%20random%2C%20hard-to-guess%20string.,or%20by%20setting%20a%20cookie%20containing%20the%20value.-->
+  <form method="POST">
+    {% csrf_token %}
+    <!--form passed in by django-->
+    <!--.as_p makes it look better on the screen basically-->
+    {{form.as_p}}
+    <!--materialised styled button-->
+    <button class="btn" type="submit" style="background-color: indigo;">login</button>
+  </form>
+
+  If you don't already have an account, <a href="/register">register</a> instead!
+{% endblock %}
+

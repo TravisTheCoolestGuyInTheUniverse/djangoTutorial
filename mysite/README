@@ -89,6 +89,18 @@ so create a path in urls.py.
 Basically this communicates to the user that they have been logged in, there's an error, ect.
 This is done in the views.py file. 
 
+****    LOGIN AND LOGOUT    ****
+in urls.py, create path for logout/ so the website knows what to do at that uri.
+make a view that isn't called logout that calls the built in django function logout. 
+
+in urls.py create path for login/. make a similar view that also isn't called login because we 
+will use djangos login function. if the method is GET, then render an AuthenticationForm in the template login.html. 
+if the method is POST, then take the data that the user put into the form and authenticate it using the
+django authenticate() function. Then if the user exists, log them in using the login() function.
+
+You can also create your own forms and extend django forms. Look in forms.py.
+
+
 **** USEFUL COMMANDS ****
 
 django-admin startproject [project name]

@@ -136,3 +136,6 @@ applications data domain. Model contains business logic in Django architecture.
 View: UI logic. HTML/CSS created from the Models component.
 
 Controller: handles user interaction and selects view according to model.
+
+A model can be used in the views.py to either update the database with information from a user
+or to render information from the database to the webpage.

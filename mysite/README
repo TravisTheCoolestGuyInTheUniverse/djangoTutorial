@@ -85,6 +85,10 @@ then the user is logged in using default django methods.
 lastly the website needs to know to show the register view at /register
 so create a path in urls.py. 
 
+****    MESSAGES AND INCLUDES    ****
+Basically this communicates to the user that they have been logged in, there's an error, ect.
+This is done in the views.py file. 
+
 **** USEFUL COMMANDS ****
 
 django-admin startproject [project name]

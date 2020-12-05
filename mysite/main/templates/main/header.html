@@ -12,17 +12,9 @@
 </head>
 <!--everything that is rendered inside the browser should be in body-->
 <body>
-    <!--Navigation bar-->
-    <nav>
-        <div class="nav-wrapper">
-          <a href="#" class="brand-logo">Tutorial</a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="/">Home</a></li>
-            <li><a href="/register">Register</a></li>
-            <li><a href="/login">Login</a></li>
-          </ul>
-        </div>
-      </nav>
+    <!--way to save space in files and make html more modular. Pretend html in navbar.html is sitting here. much cleaner and more readable.-->
+    {% include "main/includes/navbar.html" %}
+    {% include "main/includes/messages.html" %}
       <div class="container">
         <br>
         <!--anything that extends this file can put content here.-->
@@ -31,12 +23,7 @@
       </div>
       
 </body>
-
-
-
-        
         <br><br>
-
 <script src="{% static 'tinymce/js/prism.js' %}"></script>
 
 

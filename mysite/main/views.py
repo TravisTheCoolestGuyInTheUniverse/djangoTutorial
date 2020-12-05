@@ -4,6 +4,7 @@ from .models import Tutorial
 #convenient form thats already created for us in django!
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, logout, authenticate
+from django.contrib import messages
 # Create your views here.
 
 def home(request):
@@ -32,15 +33,23 @@ def register(request):
         if form.is_valid():
             #commit to the database
             user = form.save()
+
+            #cleaned_data makes the data in the username field in a normalized format.
+            username = form.cleaned_data.get('username')
+            #this always goes to the exact user that is supposed to get this message.
+            #site-wide notifications are done differently, maybe putting something in the header file.
+            #this doesn't actually send a message, but it stores it.
+            messages.success(request, f"New Account Created: {username}")
             #login the user
             login(request, user)
+            messages.info(request, f"You are now logged in as {username}")
             #return them to the homepage
             #finds that app_name = 'home' in urls.py and then finds the path with name home and takes user there.
             return redirect('main:home')
         else:
             for msg in form.error_messages:
                 #temporary way of handling error messages
-                print(form.error_messages[msg])
+                messages.error(request, f"{msg}: {form.error_messages[msg]}")
 
     form = UserCreationForm
     return render(request, "main/register.html", context={"form":form})

@@ -1,0 +1,15 @@
+<!--messaging system for entire website. look in views function for "messages.success()" to see how messages are made.-->
+{% if messages %}
+{% for message in messages %}
+<!--html is the html that is passed, classes connects it to css, display length is how long message is displayed.-->
+    {% if message.tags == 'success'%}
+        <script>M.toast({html: "{{message}}", classes: 'green rounded', displayLength:2000});</script>
+    {% elif message.tags == 'info'%}
+        <script>M.toast({html: "{{message}}", classes: 'blue rounded', displayLength:2000});</script>
+    {% elif message.tags == 'warning'%}
+        <script>M.toast({html: "{{message}}", classes: 'orange rounded', displayLength:10000});</script>
+    {% elif message.tags == 'error'%}
+        <script>M.toast({html: "{{message}}", classes: 'red rounded', displayLength:10000});</script>
+    {% endif %}
+{% endfor %}
+{% endif %}

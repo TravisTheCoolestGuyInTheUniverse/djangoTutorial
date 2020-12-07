@@ -100,7 +100,27 @@ django authenticate() function. Then if the user exists, log them in using the l
 
 You can also create your own forms and extend django forms. Look in forms.py.
 
+****    LINKING MODELS WITH FOREIGN KEYS    ****
+Recall your databases course: many to many relationships between tables are bad. Should only be 
+one to one or one to many relationships. Also remember first second and third normal forms:
 
+first normal form: basically every entry in a table has a primary key. 
+second normal form: no functional dependencies. All non-key attributes depend on the entire primary key and not just part of it. (only relevant for composite keys)
+third normal form: no transitive dependencies. all non-key attributes depend on the primary key only and not other attributes.
+
+we might want tables in our database that are related to one another. Why? in the case of the tutorial website,
+we don't want all the tutorials to just sit on the main page, we want them to to be organized.
+
+See in models how each table is connected to one another. Important method is models.ForeignKey
+
+So now each tutorial will have a related series and each series will have a related category.
+
+business rules for the database:
+tutorial TO ONE series
+series TO MANY tutorials
+
+series TO ONE category
+category TO MANY series
 **** USEFUL COMMANDS ****
 
 django-admin startproject [project name]

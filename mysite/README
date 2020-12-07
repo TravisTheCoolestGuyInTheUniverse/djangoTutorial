@@ -121,6 +121,9 @@ series TO MANY tutorials
 
 series TO ONE category
 category TO MANY series
+
+****    WORKING WITH FOREIGN KEYS   ****
+
 **** USEFUL COMMANDS ****
 
 django-admin startproject [project name]

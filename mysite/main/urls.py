@@ -29,4 +29,7 @@ urlpatterns = [
     #we wouldn't wanna call this logout because it would overrride djangos logout function.
     path('logout/', views.logout_request, name="logout"),
     path("login/", views.login_request, name="login"),
+    #the carrots denote that it is a variable that will be passed to function views.single_slug(request, single_slug).
+    #This url must not have any slashes. 
+    path("<single_slug>", views.single_slug, name="single_slug"),
 ]

@@ -123,14 +123,46 @@ series TO ONE category
 category TO MANY series
 
 ****    WORKING WITH FOREIGN KEYS   ****
+First we want the homepage to show only categories and have each card have a link
+to a category. basically do the same thing as with tutorials except pass in 
+all category objects as context.
+
+starting off in views.py, make a single_slug() view that 
+takes a request and a single_slug as parameters. 
+see if single_slug is a category or a tutorial (by making a list of tutorials and 
+categories and seeing if it matches the slug attribute for either)
+
+adjust the default path so that it leads to categories.html: a page that shows only categories.
+each of these categories should be clickable links that go to the url that is a single slug (no slashes.)
+
+now set up urls.py with a new path with url <single_slug> where single slug is a variable, and the view
+is single_slug(), and the name is "single_slug".
+
+single_slug() will be the view that handles displaying each series associated with a category and
+in the future each tutorial. Every one of these will have a url that is a "single slug" which is 
+a url with no slashes. 
+
+first thing we need in the view is logic to determine whether or not the single_slug is for a 
+category or for a tutorial.
+
+If the single_slug is for a category, we need to get all of the series that are associated with that category.
+We use TutorialSeries.objects.filter() to querey the database. more detail on the queries in views.py of course.
+
+Then we need to find the slug for the first episode of every series and associate it with each series.
+A dictionary does the job here. 
+
+Lastly, we need to pass it in as context for a template called category.html. each card will be a series
+and each card will also be a link to the first tutorial.
+
+More work to be done to show each tutorial. 
 
 **** USEFUL COMMANDS ****
 
-django-admin startproject [project name]
-py manage.py startapp [app name]
-py manage.py runserver (development server)
-django-admin makemigrations (preps up database, useful for when you first make your models)
-django-admin migrate (actually moves data to the database)
+django-admin startproject [project name] (starts a new project)
+py manage.py startapp [app name] (starts a new web app within a project)
+py manage.py runserver (starts development server)
+django-admin makemigrations (gets ready to set up database with tables/attributes that are reflected in models)
+django-admin migrate (actually creates the database)
 
 to test the database directly without using forms and stuff: 
 

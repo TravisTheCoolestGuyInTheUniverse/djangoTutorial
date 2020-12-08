@@ -7,7 +7,7 @@ import time
 class TutorialCategory(models.Model):
     category = models.CharField(max_length=200)
     categorySummary = models.CharField(max_length=200)
-    categorySlug = models.CharField(max_length=200)
+    slug = models.CharField(max_length=200)
 
     class Meta:
         #this is for our admin page so it shows up as Catergories instead of Catergorys

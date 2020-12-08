@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Tutorial
+from .models import Tutorial, TutorialCategory, TutorialSeries
 #convenient form thats already created for us in django!
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
@@ -8,6 +8,34 @@ from django.contrib import messages
 #this is the form that i extended from UserCreationForm
 from .forms import NewUserForm
 # Create your views here.
+"""
+slug is the url. single slug refers to showing different things at the same url rather than redirecting
+to a new one. 
+/cooking/
+/tutorial-1-scrambled-eggs
+"""
+def single_slug(request, single_slug):
+    #need to know: is this a category url or tutorial url?
+    categories = [c.slug for c in TutorialCategory.objects.all()]
+    if single_slug in categories:
+        #category is foreign key in TutorialSeries, double underscore slug gets us the slug of a category.
+        #returns list of series that are associated with a category that has a slug that matches the single_slug.
+        matching_series = TutorialSeries.objects.filter(category__slug=single_slug)
+
+        series_urls = {}
+        for m in matching_series.all():
+            #first series is foreign key in tutorials, second series is series attribute in TutorialSeries.
+            #returns all tutorial objects that are a part of series m, and part 1 has the earliest published date.
+            part_one = Tutorial.objects.filter(series__series=m.series).earliest("datePublished")
+            #this will give us the tutorial object for the first tutorial in each series
+            series_urls[m] = part_one.slug
+        return render(request, "main/category.html", {"part_ones": series_urls})
+
+    tutorials = [t.slug for t in Tutorial.objects.all()]
+    if single_slug in tutorials:
+        return HttpResponse(f"{single_slug} is a tutorial!!!")
+    
+    return HttpResponse(f"{single_slug} does not correspond to anything. 404")
 
 def home(request):
     """
@@ -23,8 +51,8 @@ def home(request):
     #keep in mind that User model must be imported.
     #looks 
     return render(request=request, 
-                  template_name="main/home.html",
-                  context={"Tutorials": Tutorial.objects.all})
+                  template_name="main/categories.html",
+                  context={"Categories": TutorialCategory.objects.all})
 
 
 def register(request):
@@ -86,3 +114,5 @@ def login_request(request):
     #"pass form into the template"
     form = AuthenticationForm()
     return render(request, "main/login.html", {"form":form})
+
+

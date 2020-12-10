@@ -156,6 +156,17 @@ and each card will also be a link to the first tutorial.
 
 More work to be done to show each tutorial. 
 
+****    DYNAMIC SIDEBAR    ****
+the point of this will be to have a way to navigate through each tutorial in a series.
+
+start off in views.py in single_slug().
+if the single slug is for a tutorial, then make a query for the tutorial.
+Then use is as context in the render() function. You should also create
+a template called tutorial.html for this render function. 
+Now you can see every tutorial! Woo!
+
+
+
 **** USEFUL COMMANDS ****
 
 django-admin startproject [project name] (starts a new project)

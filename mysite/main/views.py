@@ -33,6 +33,19 @@ def single_slug(request, single_slug):
 
     tutorials = [t.slug for t in Tutorial.objects.all()]
     if single_slug in tutorials:
+        #get tutorial in database with slug attribute that matches single_slug.
+        #potential issue with this: what if multiple Tutorials have the same slug? 
+        this_tutorial = Tutorial.objects.get(slug = single_slug)
+        #ez query, find all tutorials that are in the same series as this tutorial.
+        #foreign key series in Tutorial points to TutorialSeries entry. TutorialSeries entry
+        #has attribute that is called series which is the name of the series. So this returns
+        #all of the Tutorial objects that have foreign keys that point to TutorialSeries entries
+        #that have the same series name as the tutorial we just clicked on, or this tutorial. 
+        #phew. 
+        tutorials_from_series = Tutorial.objects.filter(series__series=this_tutorial.series).order_by("datePublished")
+        #get the index of the current tutorial to pop it out in the list
+        this_tutorial_idx = list(tutorials_from_series).index(this_tutorial)
+        return render(request, "main/tutorial.html", {"tutorial":this_tutorial, "sidebar":tutorials_from_series, "this_tutorial_idx":this_tutorial_idx})
         return HttpResponse(f"{single_slug} is a tutorial!!!")
     
     return HttpResponse(f"{single_slug} does not correspond to anything. 404")
